@@ -2,25 +2,37 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [Header("Assign all player prefabs in the correct order")]
-    public GameObject[] playerPrefabs;
-
-    [Header("Assign spawn point in Inspector")]
-    public Transform spawnPoint;
+    private PlayerSelector playerSelector;
 
     void Start()
     {
-        // Get selected index from PlayerPrefs
-        int selectedIndex = PlayerPrefs.GetInt("SelectedPlayer", 0);
-
-        // Check index validity
-        if (selectedIndex < 0 || selectedIndex >= playerPrefabs.Length)
+        // Get PlayerSelector in the scene
+        playerSelector = FindObjectOfType<PlayerSelector>();
+        if (playerSelector == null)
         {
-            Debug.LogError("Selected player index is out of range!");
+            Debug.LogError("PlayerSelector not found in scene.");
             return;
         }
 
-        // Instantiate selected player at spawn point
-        Instantiate(playerPrefabs[selectedIndex], spawnPoint.position, spawnPoint.rotation);
+        // Get spawn point by tag
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawnPoint");
+        if (spawnPoint == null)
+        {
+            Debug.LogError("No object found with tag 'PlayerSpawnPoint'");
+            return;
+        }
+
+        int index = PlayerPrefs.GetInt("SelectedPlayer", 0);
+
+        // Safety check
+        if (index < 0 || index >= playerSelector.players.Length)
+        {
+            Debug.LogError("Selected player index out of range.");
+            return;
+        }
+
+        // Instantiate selected player
+        GameObject selectedPlayer = Instantiate(playerSelector.players[index], spawnPoint.transform.position, spawnPoint.transform.rotation);
+        selectedPlayer.name = "Player_" + index;
     }
 }
