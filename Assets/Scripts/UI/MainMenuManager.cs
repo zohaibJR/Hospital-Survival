@@ -26,6 +26,6 @@ public class MainMenuManager : MonoBehaviour
     {
         Debug.Log("Loading Game Scene");
         // Assuming you have a scene named "GameScene" in your build settings
-        SceneManager.LoadScene("GamePlayScene");
+        SceneManager.LoadScene("PlayerMovementScene");
     }
 }

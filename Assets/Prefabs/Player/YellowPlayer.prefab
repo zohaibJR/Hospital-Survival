@@ -201,7 +201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6129324646736553915
 Transform:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca799104d528d24c90176a7d6b8d69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockedPosition: {x: -1274.07, y: -718.12, z: -2.36027}
+  lockedPosition: {x: 0, y: 2.31, z: 0}
   lockedRotation: {x: -0, y: 0, z: 0}
 --- !u!95 &2055872540365143823
 Animator:

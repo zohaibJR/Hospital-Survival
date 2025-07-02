@@ -31,8 +31,12 @@ public class PlayerSpawner : MonoBehaviour
             return;
         }
 
-        // Instantiate selected player
-        GameObject selectedPlayer = Instantiate(playerSelector.players[index], spawnPoint.transform.position, spawnPoint.transform.rotation);
-        selectedPlayer.name = "Player_" + index;
+        // Activate and move selected player
+        GameObject selectedPlayer = playerSelector.players[index];
+        selectedPlayer.SetActive(true);
+        selectedPlayer.transform.position = spawnPoint.transform.position;
+        selectedPlayer.transform.rotation = spawnPoint.transform.rotation;
+
+        Debug.Log("Activated existing player: " + selectedPlayer.name);
     }
 }
