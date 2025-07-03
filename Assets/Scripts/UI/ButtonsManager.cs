@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ButtonsManager : MonoBehaviour
 {
+    public AnimationControll animationcontrollerObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,6 +17,7 @@ public class ButtonsManager : MonoBehaviour
 
     public void AttackButtonPressed()
     {
+        animationcontrollerObject.PlayHammerAttackAnim();
         Debug.Log("Attack button pressed");
     }
 

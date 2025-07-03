@@ -28,4 +28,9 @@ public class MainMenuManager : MonoBehaviour
         // Assuming you have a scene named "GameScene" in your build settings
         SceneManager.LoadScene("PlayerMovementScene");
     }
+
+    public void DisplayWeaponSelectionPanel()
+    {
+        Debug.Log("Displaying Weapon Selection Panel");
+    }
 }

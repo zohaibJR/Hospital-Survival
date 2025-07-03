@@ -9,12 +9,12 @@ public class PlayerShopManager : MonoBehaviour
     public int currentPlayerIndex = 0;
     public GameObject[] PlayerModels;
 
-    public PlayerBluePrint[] PlayersData;
+    public PlayerBluePrint[] PlayersDataBP;
 
     public GameObject PlayButton;
     public GameObject UnlockAllPlayerButton;
     public GameObject LockedImage;
-    public GameObject Price;
+    public GameObject PlayerPriceBTN;
     public Text PriceInteger;
 
     public static PlayerShopManager Pinst;
@@ -27,7 +27,7 @@ public class PlayerShopManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        foreach (PlayerBluePrint Player in PlayersData)
+        foreach (PlayerBluePrint Player in PlayersDataBP)
         {
             if (Player.price == 0)
             {
@@ -41,10 +41,10 @@ public class PlayerShopManager : MonoBehaviour
 
         int rewardedPlayerIndex = PlayerPrefs.GetInt("RewardedPlayer", -1);
 
-        if (rewardedPlayerIndex >= 0 && rewardedPlayerIndex < PlayersData.Length)
+        if (rewardedPlayerIndex >= 0 && rewardedPlayerIndex < PlayersDataBP.Length)
         {
-            PlayersData[rewardedPlayerIndex].isUnlocked = true;
-            PlayerPrefs.SetInt(PlayersData[rewardedPlayerIndex].name, 1);
+            PlayersDataBP[rewardedPlayerIndex].isUnlocked = true;
+            PlayerPrefs.SetInt(PlayersDataBP[rewardedPlayerIndex].name, 1);
         }
 
         PlayerPrefs.SetInt("SelectedPlayer", 0);
@@ -58,9 +58,10 @@ public class PlayerShopManager : MonoBehaviour
         PlayerModels[currentPlayerIndex].SetActive(true);
 
 
+
         if (PlayerPrefs.GetInt("UnlockedAllPlayer") == 1)
         {
-            foreach (PlayerBluePrint Players in PlayersData)
+            foreach (PlayerBluePrint Players in PlayersDataBP)
             {
                 Players.isUnlocked = true;
             }
@@ -110,7 +111,7 @@ public class PlayerShopManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        PlayerBluePrint b = PlayersData[currentPlayerIndex];
+        PlayerBluePrint b = PlayersDataBP[currentPlayerIndex];
 
         if (b.isUnlocked)
         {
@@ -121,7 +122,7 @@ public class PlayerShopManager : MonoBehaviour
             //Activate Player Button
             PlayButton.SetActive(true);
 
-            Price.gameObject.SetActive(false);
+            PlayerPriceBTN.gameObject.SetActive(false);
 
 
         }
@@ -135,23 +136,25 @@ public class PlayerShopManager : MonoBehaviour
             PlayButton.SetActive(false);
 
             //Activate Price Button
-            Price.gameObject.SetActive(true);
+            PlayerPriceBTN.gameObject.SetActive(true);
+
+            //Set Price Text
             PriceInteger.text = " " + b.price;
 
             if (b.price <= PlayerPrefs.GetInt("TotalCoin", 0))
             {
-                Price.GetComponent<Button>().interactable = true;
+                PlayerPriceBTN.GetComponent<Button>().interactable = true;
             }
             else
             {
-                Price.GetComponent<Button>().interactable = true;
+                PlayerPriceBTN.GetComponent<Button>().interactable = true;
             }
         }
     }
 
     public void UnlockPlayer()
     {
-        PlayerBluePrint b = PlayersData[currentPlayerIndex];
+        PlayerBluePrint b = PlayersDataBP[currentPlayerIndex];
 
         if (b.price <= PlayerPrefs.GetInt("TotalCoin"))
         {
@@ -166,7 +169,7 @@ public class PlayerShopManager : MonoBehaviour
 
     public void UnlockAllPlayer()
     {
-        foreach(PlayerBluePrint Players in PlayersData)
+        foreach(PlayerBluePrint Players in PlayersDataBP)
         {
             Players.isUnlocked = true;
         }
