@@ -255,7 +255,7 @@ public class AIController : MonoBehaviour
         if (handCollider != null)
         {
             handCollider.enabled = true;
-            Debug.Log("Hand collider activated");
+            Debug.Log("Hand collider activffated");
         }
     }
 
