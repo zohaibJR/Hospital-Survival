@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
-    public SphereCollider handCollider;
+    public GameObject HandBoxCollider;
 
     public Animator _anim;
 
@@ -38,11 +38,6 @@ public class AIController : MonoBehaviour
 
     void Start()
     {
-        handCollider = GetComponent<SphereCollider>();
-        if (handCollider != null)
-        {
-            handCollider.enabled = false;
-        }
         _anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.stoppingDistance = 0.1f;
@@ -189,20 +184,20 @@ public class AIController : MonoBehaviour
 
         // Play attack animation
         _anim.SetBool("isAttacking", true);
-        ActivateHandCollider();
+        HandBoxCollider.SetActive(true);
 
 
         if (distance > attackRange + 1f)
         {
             // Exit attack if player escapes
             _anim.SetBool("isAttacking", false);
-            DeactivateHandCollider();
+            HandBoxCollider.SetActive(true);
             currentState = State.Chase;
             return;
         }
 
         // Optional: You can add damage logic here
-        Debug.Log("Attacking Player!");
+        //Debug.Log("Attacking Player!");
     }
 
     void UpdateAnimator()
@@ -247,26 +242,6 @@ public class AIController : MonoBehaviour
     {
         angleInDegrees += transform.eulerAngles.y;
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-    }
-
-
-    public void ActivateHandCollider()
-    {
-        if (handCollider != null)
-        {
-            handCollider.enabled = true;
-            Debug.Log("Hand collider activffated");
-        }
-    }
-
-
-    public void DeactivateHandCollider()
-    {
-        if (handCollider != null)
-        {
-            handCollider.enabled = false;
-            Debug.Log("Hand collider deactivated");
-        }
     }
 
 

@@ -20,9 +20,4 @@ public class ButtonsManager : MonoBehaviour
         animationcontrollerObject.PlayHammerAttackAnim();
         Debug.Log("Attack button pressed");
     }
-
-    public void ComboButtonPressed()
-    {
-        Debug.Log("Combo button pressed");
-    }
 }

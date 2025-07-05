@@ -1,28 +1,27 @@
 using UnityEngine;
+using System.Collections;
 
 public class AnimationControll : MonoBehaviour
 {
     public Animator HammerAnim;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        HammerAnim = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (HammerAnim == null)
+        {
+            HammerAnim = GetComponent<Animator>();
+        }
     }
 
     public void PlayHammerAttackAnim()
     {
         if (HammerAnim != null)
         {
-            HammerAnim.SetBool("isAttacking", true);
-            Debug.Log("Hammer attack animation triggered.");
-            ReturnAnimation();
+            HammerAnim.SetBool("isAttackingHammer", true);
+            Debug.Log("<color=yellow>Hammer attack animation triggered.</color>");
+
+            // Start coroutine to reset the flag
+            StartCoroutine(ResetAttackTrigger());
         }
         else
         {
@@ -30,10 +29,10 @@ public class AnimationControll : MonoBehaviour
         }
     }
 
-    void ReturnAnimation()
+    IEnumerator ResetAttackTrigger()
     {
-        HammerAnim.SetBool("isAttacking", false);
+        // Wait a small amount of time so the animation can play
+        yield return new WaitForSeconds(0.1f);
+        HammerAnim.SetBool("isAttackingHammer", false);
     }
-
-
 }
