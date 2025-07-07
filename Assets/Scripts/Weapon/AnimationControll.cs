@@ -4,7 +4,7 @@ using System.Collections;
 public class AnimationControll : MonoBehaviour
 {
     public Animator HammerAnim;
-
+    public Animator ArmAnim;
     void Start()
     {
         if (HammerAnim == null)
@@ -18,6 +18,7 @@ public class AnimationControll : MonoBehaviour
         if (HammerAnim != null)
         {
             HammerAnim.SetBool("isAttackingHammer", true);
+            HammerAnim.SetBool("isArmAttacking", true);
             Debug.Log("<color=yellow>Hammer attack animation triggered.</color>");
 
             // Start coroutine to reset the flag
@@ -33,6 +34,7 @@ public class AnimationControll : MonoBehaviour
     {
         // Wait a small amount of time so the animation can play
         yield return new WaitForSeconds(0.1f);
+        HammerAnim.SetBool("isArmAttacking", false);
         HammerAnim.SetBool("isAttackingHammer", false);
     }
 }

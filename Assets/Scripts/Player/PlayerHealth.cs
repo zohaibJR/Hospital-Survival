@@ -17,10 +17,12 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void TakeAttackDamage()
-    {
-        maxHealth = maxHealth - 10;
+    {   
+        int randomDamage = Random.value < 0.5f ? 3 : 6;
+        maxHealth -= randomDamage;
+
         _bloodanimObj.PlayScreenBloodAnim();
-        Debug.Log("<color=red>Health :- " + maxHealth + "</color>");
+        Debug.Log("<color=green>Player Health: " + maxHealth + " (Damage: " + randomDamage + ")</color>");
     }
 
 

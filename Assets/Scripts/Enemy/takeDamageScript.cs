@@ -21,6 +21,8 @@ public class takeDamageScript : MonoBehaviour
             float rand = Random.value;
             int damage = (rand < 0.5f) ? 21 : 17;
 
+            Debug.Log("Weapon hit detected. Random value: " + rand + ", Damage: " + damage);
+
             EnemyTakeDamage(damage);
         }
     }
