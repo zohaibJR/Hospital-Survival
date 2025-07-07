@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f48234737b0e641a02c5e854b93f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyAnimator: {fileID: 4226465491735075429}
   EnemyHealth: 100
 --- !u!4 &8248433544829573180 stripped
 Transform:

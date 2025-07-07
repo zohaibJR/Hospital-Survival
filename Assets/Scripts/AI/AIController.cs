@@ -4,9 +4,7 @@ using UnityEngine.AI;
 public class AIController : MonoBehaviour
 {
     public GameObject HandBoxCollider;
-
     public Animator _anim;
-
     public NavMeshAgent agent;
     public Transform[] wayPoints;
 
@@ -44,56 +42,40 @@ public class AIController : MonoBehaviour
         _anim.applyRootMotion = false;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        if (Vector3.Distance(transform.position, wayPoints[currentWaypointIndex].position) < 1f)
-        {
-            currentWaypointIndex = (currentWaypointIndex + 1) % wayPoints.Length;
-        }
-
         GoToNextWaypoint();
     }
 
     void Update()
     {
+        if (_anim.GetBool("isDead")) return;
+
         if (currentState != lastState)
         {
             Debug.Log("AI State changed to: " + currentState);
             lastState = currentState;
         }
 
-        if (CanSeePlayer() && currentState != State.Attack)
+        if (CanSeePlayer())
         {
             lastSeenPosition = player.position;
 
-            if (Vector3.Distance(transform.position, player.position) <= attackRange)
-            {
-                currentState = State.Attack;
-                return;
-            }
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-            currentState = State.Chase;
+            if (distanceToPlayer <= attackRange)
+                currentState = State.Attack;
+            else
+                currentState = State.Chase;
         }
 
         switch (currentState)
         {
-            case State.Patrol:
-                PatrolBehavior();
-                break;
-
-            case State.Chase:
-                ChaseBehavior();
-                break;
-
-            case State.Search:
-                SearchBehavior();
-                break;
-
-            case State.Attack:
-                AttackBehavior();
-                break;
+            case State.Patrol: PatrolBehavior(); break;
+            case State.Chase: ChaseBehavior(); break;
+            case State.Search: SearchBehavior(); break;
+            case State.Attack: AttackBehavior(); break;
         }
 
-        UpdateAnimator(); // <-- Important!
+        UpdateAnimator();
     }
 
     bool CanSeePlayer()
@@ -109,9 +91,7 @@ public class AIController : MonoBehaviour
             if (angle <= viewAngle / 2f)
             {
                 if (!Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, obstacleMask))
-                {
                     return true;
-                }
             }
         }
         return false;
@@ -176,28 +156,26 @@ public class AIController : MonoBehaviour
     {
         if (player == null) return;
 
-        // Stop agent movement and rotate toward player
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        // Play attack animation
         _anim.SetBool("isAttacking", true);
         HandBoxCollider.SetActive(true);
 
-
         if (distance > attackRange + 1f)
         {
-            // Exit attack if player escapes
-            _anim.SetBool("isAttacking", false);
-            HandBoxCollider.SetActive(true);
+            CancelAttack();
             currentState = State.Chase;
-            return;
         }
+    }
 
-        // Optional: You can add damage logic here
-        //Debug.Log("Attacking Player!");
+    public void CancelAttack()
+    {
+        _anim.SetBool("isAttacking", false);
+        if (HandBoxCollider != null)
+            HandBoxCollider.SetActive(false);
     }
 
     void UpdateAnimator()
@@ -212,7 +190,6 @@ public class AIController : MonoBehaviour
         _anim.SetBool("isRunning", isRunning);
         _anim.SetBool("isAttacking", isAttacking);
     }
-
 
     void GoToNextWaypoint()
     {
@@ -243,6 +220,4 @@ public class AIController : MonoBehaviour
         angleInDegrees += transform.eulerAngles.y;
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
-
-
 }
