@@ -56,23 +56,11 @@ MonoBehaviour:
   - {fileID: 4242864595431494683}
   - {fileID: 5785101670777746216}
   - {fileID: 7358194241142989354}
-  PlayersData:
-  - name: Blue Player
-    index: 0
-    price: 0
-    isUnlocked: 1
-  - name: Pink Player
-    index: 1
-    price: 1000
-    isUnlocked: 1
-  - name: Yellow Player
-    index: 2
-    price: 2000
-    isUnlocked: 1
+  PlayersDataBP: []
   PlayButton: {fileID: 0}
   UnlockAllPlayerButton: {fileID: 0}
   LockedImage: {fileID: 0}
-  Price: {fileID: 0}
+  PlayerPriceBTN: {fileID: 0}
   PriceInteger: {fileID: 0}
 --- !u!1001 &1595322252655757828
 PrefabInstance:

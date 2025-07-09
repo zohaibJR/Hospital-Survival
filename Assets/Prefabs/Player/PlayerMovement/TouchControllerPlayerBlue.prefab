@@ -1296,6 +1296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HammerAnim: {fileID: 1370228993400491816}
+  ArmAnim: {fileID: 0}
 --- !u!65 &3350198784221396067
 BoxCollider:
   m_ObjectHideFlags: 0
