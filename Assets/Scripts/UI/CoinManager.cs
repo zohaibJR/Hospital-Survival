@@ -16,9 +16,11 @@ public class CoinManager : MonoBehaviour
 
     public void SetGameStartCoins()
     {
-        PlayerPrefs.SetInt("TotalCoin", 500);
+        PlayerPrefs.SetInt("TotalCoin", 800);
         PlayerPrefs.Save();
-        Debug.Log("Game start coins set to 1000");
+        Debug.Log("Game start coins set to 500");
+
+        Debug.Log("Total Coins: " + PlayerPrefs.GetInt("TotalCoin"));
 
         coinDisplay?.UpdateCoinText();
     }

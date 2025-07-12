@@ -9,7 +9,11 @@ public class WeaponShopManager : MonoBehaviour
     public GameObject[] WeaponModels;
 
     public WeaponBluePrint[] WeaponsDataBP;
+
+
     public GameObject LockedImage;
+    public GameObject CommingSoonImage;
+
     public GameObject NextButton;
     public GameObject WeaponPriceBTN;
     public Text PriceInteger;
@@ -25,7 +29,8 @@ public class WeaponShopManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        foreach(WeaponBluePrint Weapons in WeaponsDataBP)
+        Debug.Log("Weapon Shop Manager Started");
+        foreach (WeaponBluePrint Weapons in WeaponsDataBP)
         {
             if(Weapons.WeaponPrice == 0)
             {
@@ -110,7 +115,11 @@ public class WeaponShopManager : MonoBehaviour
         if(weapon.WeaponIsUnlocked)
         {
             Debug.Log("Weapon is Unlocked");
+
             LockedImage.SetActive(false);
+            CommingSoonImage.SetActive(false);
+
+
             NextButton.SetActive(true); 
 
             //price here
@@ -121,6 +130,7 @@ public class WeaponShopManager : MonoBehaviour
         {
             Debug.Log("Weapon is locked");
             LockedImage.SetActive(true);
+            CommingSoonImage.SetActive(true);
             NextButton.SetActive(false);
             //price here
             WeaponPriceBTN.SetActive(true);
