@@ -11,6 +11,8 @@ public class PlayerShopManager : MonoBehaviour
 
     public PlayerBluePrint[] PlayersDataBP;
 
+    public GameObject[] PlayerDetails;
+
     public GameObject PlayButton;
     public GameObject UnlockAllPlayerButton;
     public GameObject LockedImage;
@@ -90,6 +92,7 @@ public class PlayerShopManager : MonoBehaviour
         }
 
         PlayerModels[currentPlayerIndex].SetActive(true);
+        PlayerDetails[currentPlayerIndex].SetActive(true);
         PlayerPrefs.SetInt("SelectedPlayer", currentPlayerIndex);
         Debug.Log("Current Player Index: " + currentPlayerIndex);
     }
@@ -106,6 +109,7 @@ public class PlayerShopManager : MonoBehaviour
         }
 
         PlayerModels[currentPlayerIndex].SetActive(true);
+        PlayerDetails[currentPlayerIndex].SetActive(true);
         PlayerPrefs.SetInt("SelectedPlayer", currentPlayerIndex);
     }
 

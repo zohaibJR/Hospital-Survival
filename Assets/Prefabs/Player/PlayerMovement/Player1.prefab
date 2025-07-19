@@ -372,7 +372,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7951361479217766468, guid: 24282b6b60aea1241b83827645e4331f, type: 3}
         m_TargetAssemblyTypeName: DoorOpen, Assembly-CSharp
         m_MethodName: OpenDoor
         m_Mode: 1
@@ -675,7 +675,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  _bloodanimObj: {fileID: 3309021122924296065}
 --- !u!114 &3098555486299416128
 MonoBehaviour:
   m_ObjectHideFlags: 0
