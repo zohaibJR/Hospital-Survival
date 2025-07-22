@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DoorOpenNew : MonoBehaviour
 {
+
     public Animator doorAnimator;
     public GameObject DoorButton;
     public bool isDoorClosed = true;
@@ -12,20 +12,14 @@ public class DoorOpenNew : MonoBehaviour
         Debug.Log("<color=green>DoorOpen script started</color>");
 
         if (doorAnimator == null)
+        {
+            // Get Animator from parent (DoorPivot)
             doorAnimator = GetComponentInParent<Animator>();
+        }
 
         if (doorAnimator == null)
-            Debug.LogError("Animator not found!");
-
-        // Auto-assign button click event
-        if (DoorButton != null)
         {
-            Button btn = DoorButton.GetComponent<Button>();
-            if (btn != null)
-            {
-                btn.onClick.RemoveAllListeners();
-                btn.onClick.AddListener(OpenDoor);
-            }
+            Debug.LogError("<color=red>Animator not found on parent! Assign it in Inspector or fix hierarchy.</color>");
         }
 
         isDoorClosed = true;
@@ -35,8 +29,8 @@ public class DoorOpenNew : MonoBehaviour
     {
         if (other.CompareTag("Capsule"))
         {
-            Debug.Log("Player is near the door");
-            DoorButton?.SetActive(true);
+            Debug.Log("<color=green>Player is near the door</color>");
+            DoorButton.SetActive(true);
         }
     }
 
@@ -44,20 +38,16 @@ public class DoorOpenNew : MonoBehaviour
     {
         if (other.CompareTag("Capsule"))
         {
-            DoorButton?.SetActive(false);
+            DoorButton.SetActive(false);
         }
     }
 
     public void OpenDoor()
     {
-        if (doorAnimator == null)
-        {
-            Debug.LogError("Cannot open door — Animator missing!");
-            return;
-        }
-
+        Debug.Log("<color=green>OpenDoor method called</color>");
         if (isDoorClosed)
         {
+            Debug.Log("<color=green>Door is currently closed, opening it</color>");
             doorAnimator.SetBool("isDoorOpenNew", true);
             isDoorClosed = false;
         }
